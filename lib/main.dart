@@ -14,6 +14,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
       home: Consumer<AuthProvider>(
         builder: (context, authProvider, _) {
           // Jika token ada, arahkan ke HomePage, jika tidak arahkan ke LoginPage
-          return authProvider.token != null ? HomePage() : LoginPage();
+          return authProvider.token != null ? const HomePage() : const LoginPage();
         },
       ),
     );

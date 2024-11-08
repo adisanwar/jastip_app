@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 // import 'app_url.dart'; // Pastikan untuk import AppUrl
 import 'package:jastip_app/Model/user_model.dart'; // Import model Data untuk response login
-import 'package:jastip_app/Constant/urls.dart'; // Import model Data untuk response login
+// Import model Data untuk response login
 
 class AuthProvider with ChangeNotifier {
   String? _token;
@@ -18,13 +18,13 @@ class AuthProvider with ChangeNotifier {
   String? get role => _role;
 
   // Fungsi untuk login dan menyimpan token serta informasi pengguna
-  Future<bool> login(String username, String password) async {
+  Future<bool> login(String username, String password, String email) async {
     try {
       final dio = Dio();
 
       // Melakukan request POST ke endpoint login menggunakan AppUrl.login
       final response = await dio.post(
-        'http://192.168.1.25:3000/api/users/login', // Menggunakan URL dari AppUrl
+        'http://10.10.1.123:3000/api/users/login', // Menggunakan URL dari AppUrl
         data: {
           'username': username,
           'email': email,
