@@ -65,12 +65,12 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     final username = _usernameController.text;
-    final email = _usernameController.text;
+    // final email = _usernameController.text;
     final password = _passwordController.text;
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final success = await authProvider.login(username, email, password);
+    final success = await authProvider.login(username, password);
 
     setState(() {
       _isLoading = false;

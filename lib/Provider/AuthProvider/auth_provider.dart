@@ -8,26 +8,26 @@ class AuthProvider with ChangeNotifier {
   String? _token;
   String? _username;
   String? _email;
-  String? _status;
+  int? _status;
   String? _role;
 
   String? get token => _token;
   String? get username => _username;
   String? get email => _email;
-  String? get status => _status;
+  int? get status => _status;
   String? get role => _role;
 
   // Fungsi untuk login dan menyimpan token serta informasi pengguna
-  Future<bool> login(String username, String password, String email) async {
+  Future<bool> login(String username, String password) async {
     try {
       final dio = Dio();
 
       // Melakukan request POST ke endpoint login menggunakan AppUrl.login
       final response = await dio.post(
-        'http://10.10.1.123:3000/api/users/login', // Menggunakan URL dari AppUrl
+        'http://192.168.1.2:3000/api/users/login', // Menggunakan URL dari AppUrl
         data: {
           'username': username,
-          'email': email,
+          // 'email': email,
           'password': password,
         },
       );

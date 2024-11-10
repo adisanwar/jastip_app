@@ -1,11 +1,11 @@
-class users {
+class Users {
   int? status;
   String? message;
   Data? data;
 
-  users({this.status, this.message, this.data});
+  Users({this.status, this.message, this.data});
 
-  users.fromJson(Map<String, dynamic> json) {
+  Users.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -28,7 +28,7 @@ class Data {
   String? password;
   String? email;
   String? token;
-  String? status;
+  int? status; // Ensure `bool?` is correctly used for nullable boolean values
   String? role;
 
   Data(
@@ -37,7 +37,7 @@ class Data {
       required this.password,
       this.email,
       this.token,
-      this.status,
+      this.status, // Keep `bool? status` if it can be null, otherwise remove the `?` for non-nullable
       required this.role});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -46,7 +46,7 @@ class Data {
     password = json['password'];
     email = json['email'];
     token = json['token'];
-    status = json['status'];
+    status = json['status']; // Ensure `status` is correctly mapped
     role = json['role'];
   }
 
