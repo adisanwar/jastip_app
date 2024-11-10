@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-    final success = await authProvider.login(username, email,  password);
+    final success = await authProvider.login(username, email, password);
 
     setState(() {
       _isLoading = false;
@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
       // Navigasi ke HomePage jika login berhasil
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else {
       setState(() {

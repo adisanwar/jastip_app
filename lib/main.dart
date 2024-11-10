@@ -8,7 +8,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => AuthProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
       home: Consumer<AuthProvider>(
         builder: (context, authProvider, _) {
           // Jika token ada, arahkan ke HomePage, jika tidak arahkan ke LoginPage
-          return authProvider.token != null ? const HomePage() : const LoginPage();
+          return authProvider.token != null
+              ? const HomePage()
+              : const LoginPage();
         },
       ),
     );
