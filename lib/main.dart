@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
+import 'package:jastip_app/Provider/Database/db_provider.dart';
 import 'package:jastip_app/Screens/Auth/login.dart';
 import 'package:jastip_app/Screens/Home/HomePage.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AuthProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => DatabaseProvider()),
+      ],
       child: const MyApp(),
     ),
   );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

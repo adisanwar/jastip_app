@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
 import 'package:jastip_app/Screens/Auth/login.dart';
 import 'package:provider/provider.dart';
-// import 'auth_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,8 +16,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () {
-              Provider.of<AuthProvider>(context, listen: false).logout();
+            onPressed: () async {
+              // Memanggil fungsi logout dengan BuildContext
+              await authProvider.logout(context);
+              // Mengarahkan ke halaman login setelah logout
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -33,12 +34,12 @@ class HomePage extends StatelessWidget {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Welcome, ${authProvider.username}'),
+                  Text('Welcome, ${authProvider.username ?? 'User'}'),
                   Text('Email: ${authProvider.email ?? 'N/A'}'),
                   Text('Status: ${authProvider.status ?? 'N/A'}'),
                   Text('Role: ${authProvider.role ?? 'N/A'}'),
                   const SizedBox(height: 20),
-                  Text('Token: ${authProvider.token}'),
+                  Text('Token: ${authProvider.token ?? 'N/A'}'),
                 ],
               ),
       ),

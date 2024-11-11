@@ -4,36 +4,42 @@ import 'package:jastip_app/Utils/routers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseProvider extends ChangeNotifier {
+  // Menggunakan singleton pattern agar DatabaseProvider bisa diakses di mana saja
+  static final DatabaseProvider _instance = DatabaseProvider._internal();
+  factory DatabaseProvider() => _instance;
+  DatabaseProvider._internal();
+
   final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
 
   String _token = '';
-
   String _userId = '';
 
   String get token => _token;
-
   String get userId => _userId;
 
-  void saveToken(String token) async {
-    SharedPreferences value = await _pref;
-
-    value.setString('token', token);
+  // Method untuk menyimpan token ke SharedPreferences
+  Future<void> saveToken(String token) async {
+    SharedPreferences prefs = await _pref;
+    await prefs.setString('token', token);
+    _token = token;
+    notifyListeners();
   }
 
-  void saveUserId(String id) async {
-    SharedPreferences value = await _pref;
-
-    value.setString('id', id);
+  // Method untuk menyimpan userId ke SharedPreferences
+  Future<void> saveUserId(String id) async {
+    SharedPreferences prefs = await _pref;
+    await prefs.setString('id', id);
+    _userId = id;
+    notifyListeners();
   }
 
+  // Method untuk mengambil token dari SharedPreferences
   Future<String> getToken() async {
-    SharedPreferences value = await _pref;
-
-    if (value.containsKey('token')) {
-      String data = value.getString('token')!;
-      _token = data;
+    SharedPreferences prefs = await _pref;
+    if (prefs.containsKey('token')) {
+      _token = prefs.getString('token')!;
       notifyListeners();
-      return data;
+      return _token;
     } else {
       _token = '';
       notifyListeners();
@@ -41,14 +47,13 @@ class DatabaseProvider extends ChangeNotifier {
     }
   }
 
+  // Method untuk mengambil userId dari SharedPreferences
   Future<String> getUserId() async {
-    SharedPreferences value = await _pref;
-
-    if (value.containsKey('id')) {
-      String data = value.getString('id')!;
-      _userId = data;
+    SharedPreferences prefs = await _pref;
+    if (prefs.containsKey('id')) {
+      _userId = prefs.getString('id')!;
       notifyListeners();
-      return data;
+      return _userId;
     } else {
       _userId = '';
       notifyListeners();
@@ -56,12 +61,12 @@ class DatabaseProvider extends ChangeNotifier {
     }
   }
 
-  void logOut(BuildContext context) async {
-    final value = await _pref;
+  // Method untuk logout, membersihkan semua data dari SharedPreferences
+  Future<void> logOut(BuildContext context) async {
+    SharedPreferences prefs = await _pref;
+    await prefs.clear();
 
-    value.clear();
-
-    // ignore: use_build_context_synchronously
+    // Navigasi ke halaman login
     PageNavigator(ctx: context).nextPageOnly(page: const LoginPage());
   }
 }
