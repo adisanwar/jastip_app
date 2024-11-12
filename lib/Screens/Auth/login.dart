@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
+import 'package:jastip_app/Screens/Auth/register.dart';
 import 'package:jastip_app/Screens/Home/HomePage.dart';
 import 'package:provider/provider.dart';
 
@@ -52,6 +53,18 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: _login,
                     child: const Text('Login'),
                   ),
+            const SizedBox(height: 20),
+            // Tambahkan teks register
+            TextButton(
+              onPressed: () {
+                // Navigasi ke halaman register
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                );
+              },
+              child: const Text("Don't have an account? Register"),
+            ),
           ],
         ),
       ),
@@ -65,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     final username = _usernameController.text;
-    // final email = _usernameController.text;
     final password = _passwordController.text;
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);

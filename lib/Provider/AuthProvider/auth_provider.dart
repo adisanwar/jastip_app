@@ -77,14 +77,14 @@ class AuthProvider with ChangeNotifier {
         {'username': username, 'password': password, 'email': email, 'role': role},
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         _isLoading = false;
         notifyListeners(); // Notify listeners about the success state
         return true;
       } else {
         _errorMessage = "Registration failed. Please try again.";
         _isLoading = false;
-        notifyListeners(); // Notify listeners about the error state
+        notifyListeners();
         return false;
       }
     } catch (e) {
@@ -95,22 +95,13 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-
-  // Fungsi untuk memuat token dari DatabaseProvider
-  Future<void> loadToken() async {
-    _token = await _dbProvider.getToken();
-    notifyListeners();
-  }
-
   // Fungsi untuk logout
   Future<void> logout(BuildContext context) async {
+    final response = await _authService.logout(
+        '/users/current'
+      );
     // Clear user data
     _token = null;
-    _username = null;
-    _email = null;
-    _status = null;
-    _role = null;
-
     // Clear token in the database
     await _dbProvider.logOut(context);
 

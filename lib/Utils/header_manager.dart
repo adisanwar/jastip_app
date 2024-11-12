@@ -7,6 +7,11 @@ class HeaderManager {
     // Mengambil token dari DatabaseProvider
     String apiKey = await DatabaseProvider().getToken();
 
+    // Pengecekan apakah token kosong atau tidak
+    if (apiKey == null || apiKey.isEmpty) {
+      throw Exception("Login dulu");
+    }
+
     // Menentukan header berdasarkan apakah itu multipart atau json
     if (isMultipart) {
       return {

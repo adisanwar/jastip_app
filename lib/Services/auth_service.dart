@@ -67,10 +67,14 @@ Future<Response> register(String endpoint, Map<String, dynamic> data) async {
       // Mendapatkan headers dari HeaderManager
       Map<String, String> headers = await HeaderManager.getHeaders();
 
+      final options = Options(
+      headers: headers,  // Ensure correct Content-Type header
+    );
+
       // Menambahkan header ke dalam request
       final response = await _dio.get(
         endpoint,
-        options: Options(headers: headers), // Menggunakan header yang sudah diambil
+        options: options, // Menggunakan header yang sudah diambil
       );
       return response;
     } catch (e) {
@@ -79,22 +83,44 @@ Future<Response> register(String endpoint, Map<String, dynamic> data) async {
     }
   }
 
-  // Fungsi untuk upload file (Multipart)
-  Future<Response> uploadFile(String endpoint, FormData formData) async {
+  // Fungsi untuk melakukan GET request
+  Future<Response> logout(String endpoint) async {
     try {
-      // Mendapatkan headers dari HeaderManager untuk multipart
-      Map<String, String> headers = await HeaderManager.getHeaders(isMultipart: true);
 
+    // Mendapatkan headers dari HeaderManager
+      Map<String, String> headers = await HeaderManager.getHeaders();
+
+      final options = Options(
+      headers: headers,  // Ensure correct Content-Type header
+    );
       // Menambahkan header ke dalam request
-      final response = await _dio.post(
+      final response = await _dio.delete(
         endpoint,
-        data: formData,
-        options: Options(headers: headers), // Menggunakan header yang sudah diambil
+        options: options, // Menggunakan header yang sudah diambil
       );
       return response;
     } catch (e) {
-      print("Error during file upload: $e");
+      print("Error during Logout request: $e");
       rethrow;
     }
   }
+
+  // // Fungsi untuk upload file (Multipart)
+  // Future<Response> uploadFile(String endpoint, FormData formData) async {
+  //   try {
+  //     // Mendapatkan headers dari HeaderManager untuk multipart
+  //     Map<String, String> headers = await HeaderManager.getHeaders(isMultipart: true);
+
+  //     // Menambahkan header ke dalam request
+  //     final response = await _dio.post(
+  //       endpoint,
+  //       data: formData,
+  //       options: Options(headers: headers), // Menggunakan header yang sudah diambil
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     print("Error during file upload: $e");
+  //     rethrow;
+  //   }
+  // }
 }
