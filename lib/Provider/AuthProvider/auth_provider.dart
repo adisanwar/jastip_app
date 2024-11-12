@@ -4,10 +4,8 @@ import 'package:jastip_app/Provider/Database/db_provider.dart';
 import 'package:jastip_app/Services/auth_service.dart';
 
 class AuthProvider with ChangeNotifier {
-
   final DatabaseProvider _dbProvider = DatabaseProvider();
   final AuthService _authService = AuthService(); // Instance from ApiService
-
 
   String? _token;
   String? _username;
@@ -25,14 +23,12 @@ class AuthProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-
-
   // Fungsi untuk login dan menyimpan token serta informasi pengguna
   Future<bool> login(String username, String password) async {
     try {
       _isLoading = true;
-    _errorMessage = null;
-    notifyListeners(); // Notify listeners about the loading state
+      _errorMessage = null;
+      notifyListeners(); // Notify listeners about the loading state
 
       final response = await _authService.login(
         '/users/login', // Adjust your API endpoint here
@@ -66,15 +62,21 @@ class AuthProvider with ChangeNotifier {
   }
 
   // Method to register a user
-  Future<bool> register(String username, String password, String email, String role) async {
-    _isLoading = true;
+  Future<bool> register(
+      String username, String password, String email, String role) async {
+    _isLoading = false;
     _errorMessage = null;
     notifyListeners(); // Notify listeners about the loading state
 
     try {
       final response = await _authService.register(
         '/users',
-        {'username': username, 'password': password, 'email': email, 'role': role},
+        {
+          'username': username,
+          'password': password,
+          'email': email,
+          'role': role
+        },
       );
 
       if (response.statusCode == 201) {
@@ -97,9 +99,7 @@ class AuthProvider with ChangeNotifier {
 
   // Fungsi untuk logout
   Future<void> logout(BuildContext context) async {
-    final response = await _authService.logout(
-        '/users/current'
-      );
+    final response = await _authService.logout('/users/current');
     // Clear user data
     _token = null;
     // Clear token in the database

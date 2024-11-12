@@ -4,7 +4,7 @@ import 'package:jastip_app/Styles/colors.dart';
 class ButtonPrimary extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
-  final Color? color;
+  // final Color? color;
   final double borderRadius;
   final double padding;
   final double height; // Tambahkan properti height
@@ -13,9 +13,9 @@ class ButtonPrimary extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.child,
-    this.color,
+    // this.color,
     this.borderRadius = 8.0,
-    this.padding = 16.0,
+    this.padding = 14.0,
     this.height = 48.0, // Default tinggi tombol 48
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class ButtonPrimary extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? Theme.of(context).primaryColor,
+          backgroundColor: primaryColor,
           foregroundColor: white, // Warna teks tombol
           padding: EdgeInsets.all(padding),
           shape: RoundedRectangleBorder(

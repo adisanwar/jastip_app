@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Model/user_model.dart';
+import 'package:jastip_app/Widget/button_primary.dart';
+import 'package:jastip_app/Widget/text_form.dart';
 import 'package:provider/provider.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
 
@@ -32,9 +34,9 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextFormField(
+              FormPrimary(
                 controller: _usernameController,
-                decoration: const InputDecoration(labelText: "Username"),
+                labelText: "Username",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter your username";
@@ -42,9 +44,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   return null;
                 },
               ),
-              TextFormField(
+              const SizedBox(height: 20),
+              FormPrimary(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: "Password"),
+                labelText: "Password",
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.length < 6) {
@@ -53,9 +56,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   return null;
                 },
               ),
-              TextFormField(
+              const SizedBox(height: 20),
+              FormPrimary(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: "Email"),
+                labelText: "Email",
                 validator: (value) {
                   if (value == null || !value.contains("@")) {
                     return "Please enter a valid email";
@@ -66,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 20),
               authProvider.isLoading
                   ? const CircularProgressIndicator()
-                  : ElevatedButton(
+                  : ButtonPrimary(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           // Create user data object
@@ -87,13 +91,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
                           if (success) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Registration successful")),
+                              const SnackBar(
+                                  content: Text("Registration successful")),
                             );
-                            Navigator.pop(context); // Navigate back or to another page
+                            Navigator.pop(
+                                context); // Navigate back or to another page
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(authProvider.errorMessage ?? "Registration failed"),
+                                content: Text(authProvider.errorMessage ??
+                                    "Registration failed"),
                               ),
                             );
                           }

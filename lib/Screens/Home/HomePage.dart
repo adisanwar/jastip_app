@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
 import 'package:jastip_app/Screens/Auth/login.dart';
+import 'package:jastip_app/Utils/routers.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,10 +21,7 @@ class HomePage extends StatelessWidget {
               // Memanggil fungsi logout dengan BuildContext
               await authProvider.logout(context);
               // Mengarahkan ke halaman login setelah logout
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
+              PageNavigator(ctx: context).nextPageOnly(page: const LoginPage());
             },
           )
         ],

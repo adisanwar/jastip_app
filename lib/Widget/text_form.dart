@@ -6,6 +6,7 @@ class FormPrimary extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   const FormPrimary({
     Key? key,
@@ -13,7 +14,8 @@ class FormPrimary extends StatelessWidget {
     required this.labelText,
     this.validator,
     this.obscureText = false,
-    this.prefixIcon
+    this.prefixIcon,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class FormPrimary extends StatelessWidget {
         ), // Border when not focused
         // hintText: 'Masukan $labelText', // Example hint text
         prefixIcon: prefixIcon, // Example icon (you can customize)
+        suffixIcon: suffixIcon,
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       validator: validator,
