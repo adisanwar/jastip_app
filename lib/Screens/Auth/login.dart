@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
 import 'package:jastip_app/Screens/Auth/register.dart';
 import 'package:jastip_app/Screens/Home/HomePage.dart';
+import 'package:jastip_app/Widget/button_primary.dart';
+import 'package:jastip_app/Widget/text_form.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,15 +31,13 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
-            ),
+            FormPrimary(controller: _usernameController, labelText: 'Username atau Email', prefixIcon: const Icon(Icons.person),),
+            // TextField(
+            //   controller: _usernameController,
+            //   decoration: const InputDecoration(labelText: 'Username'),
+            // ),
+            SizedBox(height: 10,),
+            FormPrimary(controller: _passwordController, labelText: 'Password', obscureText: true, prefixIcon: Icon(Icons.key),),
             if (_errorMessage.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             _isLoading
                 ? const CircularProgressIndicator()
-                : ElevatedButton(
+                : ButtonPrimary(
                     onPressed: _login,
                     child: const Text('Login'),
                   ),

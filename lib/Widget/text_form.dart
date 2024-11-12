@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-class FormTextPrimary extends StatelessWidget {
+class FormPrimary extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final Widget? prefixIcon;
 
-  const FormTextPrimary({
+  const FormPrimary({
     Key? key,
     required this.controller,
     required this.labelText,
     this.validator,
     this.obscureText = false,
+    this.prefixIcon
   }) : super(key: key);
 
   @override
@@ -27,8 +29,8 @@ class FormTextPrimary extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ), // Border when not focused
-        hintText: 'Enter your $labelText', // Example hint text
-        prefixIcon: Icon(Icons.edit), // Example icon (you can customize)
+        // hintText: 'Masukan $labelText', // Example hint text
+        prefixIcon: prefixIcon, // Example icon (you can customize)
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       validator: validator,
