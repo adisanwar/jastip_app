@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
   String _errorMessage = '';
@@ -72,32 +73,39 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
+  setState(() {
+    _isLoading = true;
+    _errorMessage = '';
+  });
+
+  final username = _usernameController.text;
+  final email = _emailController.text;
+  final password = _passwordController.text;
+
+  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+  // Tentukan apakah input adalah email atau username
+  final isEmail = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$').hasMatch(email);
+  final identifier = isEmail ? email : username; // Jika email, kirimkan email, jika tidak kirimkan username
+
+  final success = await authProvider.login(identifier, password);
+
+  setState(() {
+    _isLoading = false;
+  });
+
+  if (success) {
+    // Navigasi ke HomePage jika login berhasil
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  } else {
     setState(() {
-      _isLoading = true;
-      _errorMessage = '';
+      _errorMessage = 'Login gagal. Periksa username dan password.';
     });
-
-    final username = _usernameController.text;
-    final password = _passwordController.text;
-
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
-    final success = await authProvider.login(username, password);
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (success) {
-      // Navigasi ke HomePage jika login berhasil
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } else {
-      setState(() {
-        _errorMessage = 'Login gagal. Periksa username dan password.';
-      });
-    }
   }
+}
+
+
 }
