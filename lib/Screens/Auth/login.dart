@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
 import 'package:jastip_app/Screens/Auth/register.dart';
-import 'package:jastip_app/Screens/Home/HomePage.dart';
+import 'package:jastip_app/Screens/Home/home_page.dart';
 import 'package:jastip_app/Styles/colors.dart';
 import 'package:jastip_app/Utils/routers.dart';
 import 'package:jastip_app/Widget/button_primary.dart';
@@ -125,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (success) {
+      // ignore: use_build_context_synchronously
       PageNavigator(ctx: context).nextPageOnly(page: const HomePage());
     } else {
       setState(() {
