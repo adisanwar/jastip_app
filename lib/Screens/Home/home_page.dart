@@ -1,7 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Screens/Cart/cart.dart';
-import 'package:jastip_app/Screens/History/history.dart';
+import 'package:jastip_app/Screens/Activity/activity.dart';
 import 'package:jastip_app/Screens/Home/main_screen.dart';
 import 'package:jastip_app/Screens/Profile/profile.dart';
 import 'package:jastip_app/Styles/colors.dart';
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         children: const <Widget>[
           // Add your respective page widgets here
           MainScreen(),
-          HistoryScreen(),
+          ActivityScreen(),
           CartScreen(), 
           ProfileScreen(),
         ],
@@ -57,12 +57,12 @@ class _HomePageState extends State<HomePage> {
             activeColor: primaryColor,
           ),
           BottomNavyBarItem(
-            icon: const Icon(Icons.history),
-            title: const Text('History'),
+            icon: const Icon(Icons.notes),
+            title: const Text('Aktivitas'),
             activeColor: primaryColor,
           ),
           BottomNavyBarItem(
-            icon: const Icon(Icons.shop),
+            icon: const Icon(Icons.trolley),
             title: const Text('Cart'),
             activeColor: primaryColor,
           ),
