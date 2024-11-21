@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jastip_app/Styles/colors.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -25,12 +25,12 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Jastip',
               style: TextStyle(
-                  color: Colors.black,
+                  color: primaryColor,
                   fontSize: 22,
                   fontWeight: FontWeight.bold),
             ),
@@ -39,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.grey),
+            icon: const Icon(Icons.notifications_none, color: primaryColor),
             onPressed: () {},
           ),
         ],
@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: const TextField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                    prefixIcon: Icon(Icons.search, color: primaryColor),
                     hintText: 'Mau Jastip apa...',
                     contentPadding: EdgeInsets.symmetric(vertical: 10),
                   ),

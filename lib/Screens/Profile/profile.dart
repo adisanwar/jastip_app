@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Provider/AuthProvider/auth_provider.dart';
+import 'package:jastip_app/Screens/Activity/activity.dart';
 import 'package:jastip_app/Screens/Auth/login.dart';
+import 'package:jastip_app/Screens/Cart/cart.dart';
 import 'package:jastip_app/Styles/colors.dart';
 import 'package:jastip_app/Utils/routers.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   Future<void> _showLogoutDialog(BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -25,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    // final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
       body: Stack(
@@ -111,6 +113,8 @@ class ProfileScreen extends StatelessWidget {
                             labelStyle: TextStyle(color: Colors.white),
                           ),
                           onTap: () {
+                            PageNavigator(ctx: context)
+                                .nextPage(page:  const CartScreen());
                             // Navigate to Wishlist
                           },
                         ),
@@ -118,6 +122,8 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icons.history,
                           title: 'History',
                           onTap: () {
+                            PageNavigator(ctx: context)
+                                .nextPage(page:  const ActivityScreen());
                             // Navigate to History
                           },
                         ),
@@ -163,6 +169,19 @@ class ProfileScreen extends StatelessWidget {
                             // Navigate to Settings
                           },
                         ),
+                        _buildProfileOption(
+                          icon: Icons.help,
+                          title: 'About',
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AboutDialogPopup();
+                              },
+                            );
+                            // Navigate to Settings
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -190,6 +209,8 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+
+
   Widget _buildProfileOption({
     required IconData icon,
     required String title,
@@ -212,8 +233,8 @@ class LogoutDialog extends StatefulWidget {
   const LogoutDialog({
     required this.dialogContext,
     required this.authProvider,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _LogoutDialogState createState() => _LogoutDialogState();
@@ -227,8 +248,8 @@ class _LogoutDialogState extends State<LogoutDialog> {
     return AlertDialog(
       title: const Text('Konfirmasi Logout'),
       content: isLoading
-          ? Row(
-              children: const [
+          ? const Row(
+              children: [
                 CircularProgressIndicator(),
                 SizedBox(width: 16),
                 Text('Sedang memproses...'),
@@ -244,7 +265,6 @@ class _LogoutDialogState extends State<LogoutDialog> {
             },
           ),
         TextButton(
-  child: Text(isLoading ? '' : 'Ya', style: const TextStyle(color: Colors.red)),
   onPressed: isLoading
       ? null
       : () async {
@@ -262,8 +282,37 @@ class _LogoutDialogState extends State<LogoutDialog> {
           Navigator.of(widget.dialogContext).pop(); // Close dialog
           PageNavigator(ctx: context).nextPageOnly(page: const LoginPage());
         },
+  child: Text(isLoading ? '' : 'Ya', style: const TextStyle(color: Colors.red)),
 )
 
+      ],
+    );
+  }
+}
+
+class AboutDialogPopup extends StatelessWidget {
+  const AboutDialogPopup({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      title: const Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
+      content: const Text(
+        'This app is built to demonstrate a customizable profile section with an About page popup. '
+            'You can add more details here.',
+        textAlign: TextAlign.justify,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(
+            'Close',
+            style: TextStyle(color: Colors.blue),
+          ),
+        ),
       ],
     );
   }

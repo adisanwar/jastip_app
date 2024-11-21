@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           // Add your respective page widgets here
           MainScreen(),
           ActivityScreen(),
-          CartScreen(), 
+          CartScreen(),
           ProfileScreen(),
         ],
       ),
@@ -52,23 +52,29 @@ class _HomePageState extends State<HomePage> {
         onItemSelected: _onTap,
         items: [
           BottomNavyBarItem(
-            icon: const Icon(Icons.home),
-            title: const Text('Home'),
+            icon: Padding(
+              padding: const EdgeInsets.only(left: 9), // Atur padding vertikal
+              child: Icon(Icons.home),
+            ),
+            title: const Text('Beranda'),
             activeColor: primaryColor,
           ),
           BottomNavyBarItem(
-            icon: const Icon(Icons.notes),
+            icon: Icon(Icons.notes),
             title: const Text('Aktivitas'),
             activeColor: primaryColor,
           ),
           BottomNavyBarItem(
-            icon: const Icon(Icons.trolley),
-            title: const Text('Cart'),
+            icon: Icon(Icons.trolley),
+            title: const Text('Keranjang'),
             activeColor: primaryColor,
           ),
           BottomNavyBarItem(
-            icon: const Icon(Icons.person),
-            title: const Text('Users'),
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 9),
+              child: Icon(Icons.person),
+            ),
+            title: const Text('Profil'),
             activeColor: primaryColor,
           ),
         ],

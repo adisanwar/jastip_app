@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jastip_app/Styles/colors.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({Key? key}) : super(key: key);
@@ -33,7 +32,20 @@ class _ActivityScreenState extends State<ActivityScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Aktivitas')),
+      appBar:
+      AppBar(
+        title: const Text(
+          'Aktivitas',
+          style: TextStyle(color: primaryColor), // Mengatur warna teks
+        ),
+        centerTitle: true,
+        backgroundColor: white, // Jika ingin AppBar berwarna putih
+        elevation: 0, // Menghilangkan bayangan AppBar (opsional)
+        iconTheme: const IconThemeData(color: primaryColor), // Mengatur warna ikon (misalnya back button)
+      ),
+      // AppBar(title: const Text('Aktivitas', textS),
+      //
+      //   centerTitle: true,),
       body: Column(
         children: [
           TabBar(
