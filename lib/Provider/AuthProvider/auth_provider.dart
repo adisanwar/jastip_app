@@ -99,7 +99,7 @@ class AuthProvider with ChangeNotifier {
 
   // Fungsi untuk logout
   Future<void> logout(BuildContext context) async {
-    final response = await _authService.logout('/users/current');
+   await _authService.logout('/users/current');
     // Clear user data
     _token = null;
     // Clear token in the database
