@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jastip_app/Screens/Home/Product/product.dart';
 import 'package:jastip_app/Styles/colors.dart';
+import 'package:jastip_app/Utils/routers.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -95,10 +97,44 @@ class _MainScreenState extends State<MainScreen> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _buildProductCard('Kaos Joger', '120 Orang Jastip',
-                        'https://via.placeholder.com/600x400'),
-                    _buildProductCard('Gelato Jogja', '80 Orang Jastip',
-                        'https://via.placeholder.com/600x400'),
+                    _buildProductCard(
+                      'Kaos Joger',
+                      '120 Orang Jastip',
+                      'https://via.placeholder.com/600x400',
+                      () {
+                        // Aksi saat produk diklik, seperti navigasi ke halaman detail produk
+                        print('Product clicked: Kaos Joger');
+                        PageNavigator(ctx: context).nextPageOnly(page: const ProductPage());
+                      },
+                    ),
+                    _buildProductCard(
+                      'Gelato Jogja',
+                      '80 Orang Jastip',
+                      'https://via.placeholder.com/600x400',
+                      () {
+                        print('Product clicked: Gelato Jogja');
+                        PageNavigator(ctx: context).nextPageOnly(page: const ProductPage());
+                        // Tambahkan navigasi atau aksi lain di sini jika diperlukan
+                      },
+                    ),
+                    _buildProductCard(
+                      'Gelato Bali',
+                      '60 Orang Jastip',
+                      'https://via.placeholder.com/600x400',
+                      () {
+                        print('Product clicked: Gelato Bali');
+                        PageNavigator(ctx: context).nextPageOnly(page: const ProductPage());
+                      },
+                    ),
+                    _buildProductCard(
+                      'Gelato Bandung',
+                      '50 Orang Jastip',
+                      'https://via.placeholder.com/600x400',
+                      () {
+                        print('Product clicked: Gelato Bandung');
+                        PageNavigator(ctx: context).nextPageOnly(page: const ProductPage());
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -122,7 +158,6 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-      
     );
   }
 
@@ -150,38 +185,51 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   // Helper method to build product card
-  Widget _buildProductCard(String title, String subtitle, String imageUrl) {
-    return Container(
-      margin: const EdgeInsets.only(right: 16),
-      width: 150,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          const BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.network(imageUrl,
-                  fit: BoxFit.cover, width: double.infinity),
+  Widget _buildProductCard(
+      String title, String subtitle, String imageUrl, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap, // Fungsi yang dipanggil saat kartu diklik
+      child: Container(
+        margin: const EdgeInsets.only(right: 16),
+        width: 150,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            const BoxShadow(
+                color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(title,
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(subtitle, style: const TextStyle(color: Colors.grey)),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                subtitle,
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -199,5 +247,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-
